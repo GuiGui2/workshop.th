@@ -1,0 +1,18 @@
+#!/bin/bash
+
+NETWORK_NAME=GLSDEMO
+NS=$1
+ORG=$2
+PEER=$3
+
+export PATH=/home/admin1/gls/bin:$PATH
+export FABRIC_CFG_PATH=/home/admin1/gls/config/
+export CORE_PEER_TLS_ROOTCERT_FILE=/home/admin1/gls/${NETWORK_NAME}/crypto-config/peerOrganizations/org${ORG}.${NS}.svc.cluster.local/peers/peer${PEER}-org${ORG}.${NS}.svc.cluster.local/tls/ca.crt
+export CORE_PEER_TLS_CERT_FILE=/home/admin1/gls/${NETWORK_NAME}/crypto-config/peerOrganizations/org${ORG}.${NS}.svc.cluster.local/peers/peer${PEER}-org${ORG}.${NS}.svc.cluster.local/tls/server.crt
+export CORE_PEER_TLS_KEY_FILE=/home/admin1/gls/${NETWORK_NAME}/crypto-config/peerOrganizations/org${ORG}.${NS}.svc.cluster.local/peers/peer${PEER}-org${ORG}.${NS}.svc.cluster.local/tls/server.key
+export CORE_PEER_TLS_ENABLED=true
+export CORE_PEER_LOCALMSPID=org${ORG}MSP
+export CORE_PEER_MSPCONFIGPATH=/home/admin1/gls/${NETWORK_NAME}/crypto-config/peerOrganizations/org${ORG}.${NS}.svc.cluster.local/users/Admin@org${ORG}.${NS}.svc.cluster.local/msp
+#export CORE_PEER_ADDRESS=peer${PEER}:32762
+export FABRIC_TLS="--tls --cafile /home/admin1/gls/${NETWORK_NAME}/crypto-config/ordererOrganizations/${NS}.svc.cluster.local/orderers/orderer0.${NS}.svc.cluster.local/msp/tlscacerts/tlsca.${NS}.svc.cluster.local-cert.pem"
+env |grep CORE

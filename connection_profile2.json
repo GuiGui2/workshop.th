@@ -1,0 +1,88 @@
+{
+	"name": "Docker Compose Network",
+	"x-networkId": "not-important",
+	"x-type": "hlfv1",
+	"description": "Connection Profile for an IBM Blockchain Network",
+	"version": "1.0.0",
+	"client": {
+		"organization": "org2MSP"
+	},
+	"channels": {
+		"marbles": {
+			"orderers": [
+				"fabric-orderer"
+			],
+			"peers": {  
+ 				"fabric-peer-org2" : {
+                                   "x-chaincode": {}
+                                }
+			},
+			"chaincodes": [
+				"marbles:2.0"
+			],
+			"x-blockDelay": 1000
+		}
+	},
+	"organizations": {
+		"org2MSP": {
+			"mspid": "org2MSP",
+			"peers": [
+				"fabric-peer-org2"
+			],
+			"certificateAuthorities": [
+				"fabric-ca-org2"
+			]
+		}
+	},
+	"orderers": {
+		"fabric-orderer": {
+			"url": "grpcs://orderer0:30037",
+			"grpcOptions": {
+				"ssl-target-name-override": "orderer0.1549294708170.svc.cluster.local",
+				"grpc.http2.keepalive_time": 300,
+				"grpc.keepalive_time_ms": 300000,
+				"grpc.http2.keepalive_timeout": 35,
+				"grpc.keepalive_timeout_ms": 3500
+			},
+			"tlsCACerts": {
+				"path": "../../../../GLSDEMO/crypto-config/ordererOrganizations/1549294708170.svc.cluster.local/orderers/orderer0.1549294708170.svc.cluster.local/tls/ca.crt"
+			}
+		}
+		
+	},
+	"peers": {
+		"fabric-peer-org2": {
+			"url": "grpcs://peer0:30367",
+			"eventUrl": "grpcs://peer0:31022",
+			"grpcOptions": {
+				"ssl-target-name-override": "peer0-org2.1549294708170.svc.cluster.local",
+				"grpc.http2.keepalive_time": 300,
+				"grpc.keepalive_time_ms": 300000,
+				"grpc.http2.keepalive_timeout": 35,
+				"grpc.keepalive_timeout_ms": 3500
+			},
+			"tlsCACerts": {
+				"path": "../../../../GLSDEMO/crypto-config/peerOrganizations/org2.1549294708170.svc.cluster.local/peers/peer0-org2.1549294708170.svc.cluster.local/tls/ca.crt"
+			}
+		}
+	},
+	"certificateAuthorities": {
+		"fabric-ca-org2": {
+			"url": "https://ca-org2:31057",
+			"httpOptions": {
+				"ssl-target-name-override": "ca-org2.1549294708170.svc.cluster.local",
+				"verify": true
+			},
+			"tlsCACerts": {
+				"path": "../../../../GLSDEMO/crypto-config/peerOrganizations/org2.1549294708170.svc.cluster.local/ca/ca-org2.1549294708170.svc.cluster.local-cert.pem"
+			},
+			"registrar": [
+				{
+					"enrollId": "admin",
+					"enrollSecret": "t92G81sn"
+				}
+			],
+			"caName": ""
+		}
+	}
+}
